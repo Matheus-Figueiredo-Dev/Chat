@@ -80,6 +80,20 @@ main {
 
 .chat_message {
     flex-grow: 1;
+    padding: 30px 30px 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    div {
+        padding: 10px;
+    width: 100%;
+    max-width: 250px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    line-height: 22px;
+    }
 }
 
 .chat_form {
@@ -113,4 +127,25 @@ main {
     img {
         width: 2rem;
     }
+}
+
+.message-self {
+    background-color: #fff;
+    color: #121212;
+    border-radius: 10px 10px 0 10px;
+    align-self: flex-end;
+}
+
+.message-order {
+    background-color: #333;
+    color: #fff;
+    border-radius: 0 10px 10px 10px;
+    align-self: flex-start;
+}
+
+.message-sender {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700;
+    color: aqua;
 }
