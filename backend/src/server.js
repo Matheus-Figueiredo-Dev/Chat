@@ -10,8 +10,8 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (data) => {
     // biome-ignore lint/complexity/noForEach: <explanation>
-    wss.clients.forEach((client) => client.send(data.toString));
+    wss.clients.forEach((client) => client.send(data.toString()));
   });
 
-  console.log('Cliente conected!');
+  console.log('Client connected!');
 });

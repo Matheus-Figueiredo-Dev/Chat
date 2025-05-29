@@ -25,10 +25,16 @@ const colors = [
     "navy",
 ]
 
+let websocket
+
 const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colors.length)
 
     return colors[randomIndex]
+}
+
+const processMessage = ({ data }) => {
+    const { userId, userName, userColor, content } = JSON.parse(data)
 }
 
 const handleSubmit = (event) => {
@@ -40,7 +46,24 @@ const handleSubmit = (event) => {
     login.style.display = 'none'
     chat.style.display = 'flex'
 
-    console.log(user)
+    websocket = new WebSocket('ws://localhost:8080')
+    websocket.onmessage = processMessage
+}
+
+const sendMessage = (event) => {
+    event.preventDefault()
+
+    const message = {
+        userId: user.id,
+        userName: user.name,
+        userColor: user.color,
+        content: chatInput.value
+    }
+
+    websocket.send(JSON.stringify(message))
+
+    chatInput.value = ''
 }
 
 loginForm.addEventListener('submit', handleSubmit)
+chatForm.addEventListener('submit', sendMessage)
