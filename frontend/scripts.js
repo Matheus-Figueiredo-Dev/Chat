@@ -5,7 +5,7 @@ const loginInput = document.querySelector('.login_input')
 const chat = document.querySelector('.chat')
 const chatForm = document.querySelector('.chat_form')
 const chatInput = document.querySelector('.chat_input')
-const chaMessage = document.querySelector('.chat_message')
+const chatMessage = document.querySelector('.chat_message')
 
 const user = {
     id: "",
@@ -27,6 +27,31 @@ const colors = [
 
 let websocket
 
+const createMessageSelfElement = (content) => {
+    const div = document.createElement('div')
+
+    div.classList.add('message-self')
+    div.innerHTML = content
+
+    return div
+}
+
+const createMessageOtherElement = (content, sender, senderColor) => {
+    const div = document.createElement('div')
+    const span = document.createElement('span')
+
+    div.classList.add('message-other')
+    span.classList.add('message-sender')
+    span.style.color = senderColor
+
+    div.appendChild(span)
+
+    span.innerHTML = sender
+    div.innerHTML += content
+
+    return div
+}
+
 const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colors.length)
 
@@ -35,6 +60,12 @@ const getRandomColor = () => {
 
 const processMessage = ({ data }) => {
     const { userId, userName, userColor, content } = JSON.parse(data)
+
+    const message = userId == user.id ? createMessageSelfElement(content) : createMessageOtherElement(content, userName, userColor)
+
+    const element = createMessageOtherElement(content, userName, userColor)
+
+    chatMessage.appendChild(message)
 }
 
 const handleSubmit = (event) => {
